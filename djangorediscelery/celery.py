@@ -10,7 +10,7 @@ import ssl
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'djangorediscelery.settings')
 
-app = Celery('djangorediscelery', BROKER_USE_SSL={'ssl_cert_reqs': ssl.CERT_NONE})
+app = Celery('djangorediscelery', BROKER_USE_SSL={'ssl_cert_reqs': ssl.CERT_REQUIRED})
 
 app.config_from_object('django.conf:settings', namespace='CELERY')
 

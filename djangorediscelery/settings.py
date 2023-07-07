@@ -42,7 +42,7 @@ CELERY_RESULT_BACKEND = "django-db"
 # this configures redis as the data store between django + celery
 CELERY_BROKER_URL = config('CELERY_BROKER_REDIS_URL', default='rediss://red-ciipouaip7vpelst0k4g:FZc3vTxovp1qJ0usF1UEkEG0IsIHBVfn@oregon-redis.render.com:6379')
 
-BROKER_USE_SSL={'ssl_cert_reqs': ssl.CERT_NONE}
+BROKER_USE_SSL={'ssl_cert_reqs': ssl.CERT_REQUIRED}
 CELERY_REDIS_BACKEND_USE_SSL={'ssl_cert_reqs': ssl.CERT_REQUIRED}
 #this allows you to schedule items in the django admin
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers.DatabaseScheduler'
