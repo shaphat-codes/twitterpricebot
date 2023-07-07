@@ -13,6 +13,9 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 import requests
 from celery import shared_task
 import tweepy
@@ -20,7 +23,7 @@ import re
 import datetime
 from dateutil import parser
 
-base_url = "http://127.0.0.1:8000"
+base_url = "https://twitterpricebot.onrender.com"
 
 
 client = tweepy.Client(
@@ -33,10 +36,17 @@ access_token_secret = 'lRGE0rZOkpshLlKdF4ufAbA6IfBcJwD93a4EeXZyRnDAp'
 
 )
 
+
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument('--no-sandbox')
+chrome_options.add_argument('--window-size=1920,1080')
+chrome_options.add_argument('--headless')
+chrome_options.add_argument('--disable-gpu')
+driver = webdriver.Chrome(chrome_options=chrome_options)
 #tasks
 @shared_task
 def crypto_scraper(url):
-    driver = Chrome(executable_path = "C:/Users/USER/desktop/SerialBuilds/pricebot/backend/pricebot/chromedriver.exe")
+    driver = Chrome(chrome_options=chrome_options, executable_path = "C:/Users/USER/desktop/SerialBuilds/pricebot/backend/pricebot/chromedriver.exe")
     driver.get(url)
     delay = 120
 
@@ -52,7 +62,7 @@ def crypto_scraper(url):
 
 @shared_task
 def stock_scraper(url):
-    driver = Chrome(executable_path = "C:/Users/USER/desktop/SerialBuilds/pricebot/backend/pricebot/chromedriver.exe")
+    driver = Chrome(chrome_options=chrome_options, executable_path = "C:/Users/USER/desktop/SerialBuilds/pricebot/backend/pricebot/chromedriver.exe")
     driver.get(url)
     delay = 120
 
@@ -73,7 +83,7 @@ def stock_scraper(url):
 ### currency exchange rates
 @shared_task
 def exchange_rate_scraper(url):
-    driver = Chrome(executable_path = "C:/Users/USER/desktop/SerialBuilds/pricebot/backend/pricebot/chromedriver.exe")
+    driver = Chrome(chrome_options=chrome_options, executable_path = "C:/Users/USER/desktop/SerialBuilds/pricebot/backend/pricebot/chromedriver.exe")
     driver.get(url)
     delay = 120
 

@@ -3,13 +3,14 @@ from celery import Celery
 from decouple import config
 from bot.make_requests import *
 from celery.schedules import crontab
+import ssl
 
 
 #set default django settings module for the celery program
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'djangorediscelery.settings')
 
-app = Celery('djangorediscelery')
+app = Celery('djangorediscelery', BROKER_USE_SSL={'ssl_cert_reqs': ssl.CERT_NONE})
 
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
@@ -45,74 +46,74 @@ exchange_rate_urls = [dollar_rate_url, euro_rate_url, pound_rate_url]
 app.conf.beat_schedule = {
             'get-bitcoin-data': {
                 'task': 'bot.tasks.crypto_scraper',
-                'schedule': 200,
+                'schedule': 2000,
                 'args': [bitcoin_url],
             },
 
             'get-ethereum-data': {
                 'task': 'bot.tasks.crypto_scraper',
-                'schedule': 200,
+                'schedule': 2000,
                 'args': [ethereum_url],
             },
             'get-bnb-data': {
                 'task': 'bot.tasks.crypto_scraper',
-                'schedule': 200,
+                'schedule': 2000,
                 'args': [bnb_url],
             },
             'get-cardano-data': {
                 'task': 'bot.tasks.crypto_scraper',
-                'schedule': 200,
+                'schedule': 2000,
                 'args': [cardano_url],
             },
             'get-dogecoin-data': {
                 'task': 'bot.tasks.crypto_scraper',
-                'schedule': 200,
+                'schedule': 2000,
                 'args': [dogecoin_url],
             },
             'get-google_stock-data': {
                 'task': 'bot.tasks.stock_scraper',
-                'schedule': 200,
+                'schedule': 2000,
                 'args': [google_stock_url],
             },
             'get-amazon_stock-data': {
                 'task': 'bot.tasks.stock_scraper',
-                'schedule': 200,
+                'schedule': 2000,
                 'args': [amazon_stock_url],
             },
             'get-apple_stock-data': {
                 'task': 'bot.tasks.stock_scraper',
-                'schedule': 200,
+                'schedule': 2000,
                 'args': [apple_stock_url],
             },
             'get-meta-data': {
                 'task': 'bot.tasks.stock_scraper',
-                'schedule': 200,
+                'schedule': 2000,
                 'args': [meta_stock_url],
             },
             'get-tesla-data': {
                 'task': 'bot.tasks.stock_scraper',
-                'schedule': 200,
+                'schedule': 2000,
                 'args': [tesla_stock_url],
             },
             'get-microsoft-data': {
                 'task': 'bot.tasks.stock_scraper',
-                'schedule': 200,
+                'schedule': 2000,
                 'args': [microsoft_stock_url],
             },
             
              'get-dollar-data': {
                 'task': 'bot.tasks.exchange_rate_scraper',
-                'schedule': 200,
+                'schedule': 2000,
                 'args': [dollar_rate_url],
             },
              'get-pound-data': {
                 'task': 'bot.tasks.exchange_rate_scraper',
-                'schedule': 200,
+                'schedule': 2000,
                 'args': [pound_rate_url],
             },
              'get-euro-data': {
                 'task': 'bot.tasks.exchange_rate_scraper',
-                'schedule': 200,
+                'schedule': 2000,
                 'args': [euro_rate_url],
             },
 
@@ -120,19 +121,19 @@ app.conf.beat_schedule = {
 
             'get-cryptos-data': {
                 'task': 'bot.tasks.cryptos',
-                'schedule': 2000,
+                'schedule': 20000,
                 
             },
 
             'get-stocks-data': {
                 'task': 'bot.tasks.stocks',
-                'schedule': 2000,
+                'schedule': 20000,
                 
             },
 
             'get-exchange_rates-data': {
                 'task': 'bot.tasks.exchange_rates',
-                'schedule': 2000,
+                'schedule': 20000,
                 
             },
 

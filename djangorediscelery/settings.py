@@ -1,6 +1,7 @@
 
 from pathlib import Path
 from decouple import config
+import ssl
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,8 +40,10 @@ INSTALLED_APPS = [
 CELERY_RESULT_BACKEND = "django-db"
 
 # this configures redis as the data store between django + celery
-CELERY_BROKER_URL = config('CELERY_BROKER_REDIS_URL', default='redis://red-ciipouaip7vpelst0k4g:6379')
+CELERY_BROKER_URL = config('CELERY_BROKER_REDIS_URL', default='rediss://red-ciipouaip7vpelst0k4g:FZc3vTxovp1qJ0usF1UEkEG0IsIHBVfn@oregon-redis.render.com:6379')
 
+BROKER_USE_SSL={'ssl_cert_reqs': ssl.CERT_NONE}
+CELERY_REDIS_BACKEND_USE_SSL={'ssl_cert_reqs': ssl.CERT_REQUIRED}
 #this allows you to schedule items in the django admin
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers.DatabaseScheduler'
 
