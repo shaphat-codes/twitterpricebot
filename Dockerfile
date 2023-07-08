@@ -37,6 +37,6 @@ RUN pip install -r requirements.txt
 #copying the content of the backend application into our Docker container.
 COPY . /app/pricebot/
 
-CMD ["./start.sh"]
+
 
 
