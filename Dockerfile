@@ -37,6 +37,8 @@ RUN pip install -r requirements.txt
 #copying the content of the backend application into our Docker container.
 COPY . /app/pricebot/
 
+ENTRYPOINT ["./start.sh"]
 
+CMD ["celery", "-A",  "djangorediscelery",  "beat",  "-l",  "INFO"]
 
 
