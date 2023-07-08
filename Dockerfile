@@ -41,4 +41,4 @@ ENTRYPOINT ["./start.sh"]
 
 CMD ["celery", "-A",  "djangorediscelery",  "beat",  "-l",  "INFO"]
 
-exec "$@"
+
